@@ -25,3 +25,86 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.operation-button {
+  background-color: orange;
+  position: relative;
+  z-index: 1;
+  transition: all 200ms ease-in-out;
+}
+
+.operation-button:hover {
+  color: white;
+}
+
+.operation-button::before {
+  content: '';
+  position: absolute;
+  background-color: darkorange;
+  z-index: -1;
+  transition: all 200ms ease-in-out;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 100%;
+  border-radius: 7px;
+}
+
+.operation-button:hover::before {
+  right: 0;
+}
+
+.clear-button {
+  background-color: red;
+  position: relative;
+  z-index: 1;
+  transition: all 200ms ease-in-out;
+}
+
+.clear-button:hover {
+  color: white;
+}
+
+.clear-button::before {
+  content: '';
+  position: absolute;
+  background-color: #d60000;
+  z-index: -1;
+  transition: all 200ms ease-in-out;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 100%;
+  border-radius: 7px;
+}
+
+.clear-button:hover::before {
+  right: 0;
+}
+
+.num-button {
+  position: relative;
+  z-index: 1;
+  transition: all 200ms ease-in-out;
+}
+
+.num-button:hover {
+  color: white;
+}
+
+.num-button::before {
+  content: '';
+  position: absolute;
+  background-color: #aaaaaa;
+  z-index: -1;
+  transition: all 200ms ease-in-out;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 100%;
+  border-radius: 7px;
+}
+
+.num-button:hover::before {
+  right: 0;
+}
