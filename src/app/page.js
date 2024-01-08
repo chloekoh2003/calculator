@@ -1,6 +1,5 @@
 'use client'
 import { useState } from "react"
-import Image from 'next/image'
 
 export default function Home() {
   const [result, setResult] = useState('')
@@ -16,7 +15,9 @@ export default function Home() {
     } else if (value === 'C') { 
       setResult('');
       setExpression('');
-    } else {
+    } else if(value === 'Del'){
+      setExpression((prevExpression) => prevExpression.slice(0, -1));
+    }else {
       setExpression((prevExpression) => prevExpression + value);
     }
   };
@@ -26,7 +27,7 @@ export default function Home() {
     '4', '5', '6', '*',
     '1', '2', '3', '-',
     '0', '.', '=', '+',
-    'C'
+    'C','Del'
   ];
 
   return (
