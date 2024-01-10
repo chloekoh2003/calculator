@@ -1,9 +1,33 @@
 'use client'
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 
 export default function Home() {
-  const [result, setResult] = useState('')
-  const [expression, setExpression] = useState('')
+  const [result, setResult] = useState('');
+  const [expression, setExpression] = useState('');
+
+  const cursorRef = useRef(null);
+  var timeout;
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (cursorRef.current) {
+        cursorRef.current.style.top = `${e.pageY}px`;
+        cursorRef.current.style.left = `${e.pageX}px`;
+        cursorRef.current.style.display = "block";
+
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          cursorRef.current.style.display = "none";
+        }, 1000);
+      }
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      clearTimeout(timeout);
+    };
+  }, []);
 
   const handleButtonClick = (value) => {
     if (value === '=') {
@@ -32,8 +56,12 @@ export default function Home() {
 
   return (
     <div className="flex justify-center min-h-screen">
-      <main className="flex flex-col p-24 w-6/12">
-        <h1 className="text-4xl font-bold mb-10 text-left">Calculator</h1>
+
+      <div className="cursor" ref={cursorRef}>
+      </div>
+
+      <main className="flex flex-col p-4 sm:p-16 md:p-24 w-full md:w-8/12 lg:w-6/12">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-10 text-left">Calculator</h1>
         <div className="bg-white p-6 rounded-lg shadow-lg">
           <input 
             type="text" 
@@ -47,12 +75,12 @@ export default function Home() {
             value={expression}
             readOnly
           />
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-4 gap-4">
             {buttons.map((btn) => (
               <button
                 key={btn}
                 onClick={() => handleButtonClick(btn)}
-                className={`text-4xl p-2 rounded-lg shadow-lg ${
+                className={`text-4xl p-2 rounded-lg shadow-lg min-w-[70px] ${
                   ['/', '*', '-', '+', '='].includes(btn) ? 'operation-button' : 
                   btn ==='C' ? 'clear-button': 'bg-gray-300 num-button'
                 }`}
