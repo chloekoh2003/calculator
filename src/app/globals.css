@@ -41,6 +41,10 @@ input[type=text] {
   cursor: none;
 }
 
+input:focus {
+  outline: none;
+}
+
 .operation-button {
   background-color: orange;
   position: relative;

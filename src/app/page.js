@@ -32,7 +32,8 @@ export default function Home() {
   const handleButtonClick = (value) => {
     if (value === '=') {
       try {
-        setResult(eval(expression).toString());
+        const ans = eval(expression).toString();
+        setResult(ans);
       } catch (error) {
         setResult('Error');
       }
@@ -45,6 +46,10 @@ export default function Home() {
       setExpression((prevExpression) => prevExpression + value);
     }
   };
+
+  useEffect(() => {
+    console.log(result);
+  }, [result]);
 
   const buttons = [
     '7', '8', '9', '/',
@@ -63,18 +68,20 @@ export default function Home() {
       <main className="flex flex-col p-4 sm:p-16 md:p-24 w-full md:w-8/12 lg:w-6/12">
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-10 text-left">Calculator</h1>
         <div className="bg-white p-6 rounded-lg shadow-lg">
-          <input 
-            type="text" 
-            className="w-full text-4xl border-b-2 border-gray-200 font-bold mb-2"
-            value={result}
-            readOnly
-          />
           <input
             type="text"
-            className="w-full mb-2 text-md"
+            className="w-full mb-2 text-right text-2xl mb-2"
             value={expression}
             readOnly
           />
+          {result ? 
+            <input 
+              type="text" 
+              className="w-full text-4xl mb-4 text-right"
+              value={`=${result}`}
+              readOnly
+            />
+            : <div></div>}
           <div className="grid grid-cols-4 gap-4">
             {buttons.map((btn) => (
               <button
