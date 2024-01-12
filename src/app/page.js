@@ -42,7 +42,16 @@ export default function Home() {
       setExpression('');
     } else if(value === 'Del'){
       setExpression((prevExpression) => prevExpression.slice(0, -1));
-    }else {
+    } else if(isNaN(value) && result!=''){
+      try {
+        const ans = eval(expression).toString();
+        setExpression(ans);
+        setExpression((prevExpression) => prevExpression + value);
+        setResult('');
+      } catch (error) {
+        setResult('Error');
+      }
+    } else {
       setExpression((prevExpression) => prevExpression + value);
     }
   };

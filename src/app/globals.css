@@ -141,6 +141,7 @@ input:focus {
   animation: colors 5s infinite;
   transform: translate(-50%, -50%);
   pointer-events: none;
+  display: none;
 }
 
 @keyframes colors{
